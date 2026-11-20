@@ -28,11 +28,20 @@ add_action( 'print_media_templates', __NAMESPACE__ . '\load_media_backbone_templ
  */
 function load_media_view_assets( $hook_suffix ) {
 
+	// Set my handle.
+	$handle = 'media-panel-data';
+
+	// Set a file suffix structure based on whether or not we want a minified version.
+	$file   = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? $handle : $handle . '.min';
+
+	// Set a version for whether or not we're debugging.
+	$vers   = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? time() : Core\VERS;
+
 	// Load our JS file.
-	wp_enqueue_script( 'media-panel-data', esc_url( Core\ASSETS_URL . '/js/media-panel-data.js' ), [ 'jquery' ], Core\VERS, true );
+	wp_enqueue_script( $handle, esc_url( Core\ASSETS_URL . '/js/' . $file . '.js' ), [ 'jquery' ], $vers, true );
 
 	// Include some localized labeling.
-	wp_localize_script( 'media-panel-data', 'mediaPanelDataArgs',
+	wp_localize_script( $handle, 'mediaPanelDataArgs',
 		[
 			'landscape' => __( 'Landscape', 'media-panel-data' ),
 			'portrait'  => __( 'Portrait', 'media-panel-data' ),
