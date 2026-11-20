@@ -19,7 +19,6 @@ add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\load_media_view_assets' )
 add_action( 'attachment_submitbox_misc_actions', __NAMESPACE__ . '\display_media_view_data', 99 );
 add_action( 'print_media_templates', __NAMESPACE__ . '\load_media_backbone_templates' );
 
-
 /**
  * Enqueue media scripts and some CSS.
  *
@@ -31,7 +30,7 @@ function load_media_view_assets( $hook_suffix ) {
 
 	// And load the file.
 	wp_enqueue_script( 'media-panel-data', esc_url( Core\ASSETS_URL . '/js/media-panel-data.js' ), [ 'jquery' ], Core\VERS, true );
-	wp_localize_script( 'media-panel-data', 'medaPanelDataArgs',
+	wp_localize_script( 'media-panel-data', 'mediaPanelDataArgs',
 		[
 			'landscape' => __( 'Landscape', 'media-panel-data' ),
 			'portrait'  => __( 'Portrait', 'media-panel-data' ),
@@ -45,7 +44,7 @@ function load_media_view_assets( $hook_suffix ) {
  *
  * @param  WP_Post $post  The entire WP_Post object.
  *
- * @return HTML
+ * @return string
  */
 function display_media_view_data( $post ) {
 
@@ -75,13 +74,13 @@ function display_media_view_data( $post ) {
 	}
 
 	// Now include a hook so others can add it.
-	do_action( Core\HOOK_PREFIX . 'media_php_view', $media_data, $post );
+	do_action( Core\HOOK_PREFIX . 'single_edit_advanced_view', $media_data, $media_type, $post );
 }
 
 /**
- * Display the data we're surfacing for media on the media modal.
+ * Display the data we're surfacing for media on the backbone modal.
  *
- * @return HTML
+ * @return string
  */
 function load_media_backbone_templates() {
 	?>
@@ -121,22 +120,13 @@ function load_media_backbone_templates() {
 					// This only runs on images and video.
 					if ( 'image' === this.model.attributes.type || 'video' === this.model.attributes.type ) {
 
-						// Calculate my aspect ratio.
+						// Grab my width and height to use as variables.
 						var mediaW  = this.model.attributes.width;
 						var mediaH  = this.model.attributes.height;
 
-						// Add it to the model.
+						// Now add the aspect ratio and orientation label to the display model.
 						this.model.attributes.aspect_ratio = nearestNormalAspectRatio( mediaW, mediaH );
-
-						// Change the orientation back to sqaure if we're almost there.
-						if ( '1:1' === this.model.attributes.aspect_ratio ) {
-							this.model.attributes.orientation = medaPanelDataArgs.square;
-						}
-
-						// If we don't have orientation, go get it.
-						if ( ! this.model.attributes.orientation ) {
-							this.model.attributes.orientation = mediaItemOrientation( mediaW, mediaH );
-						}
+						this.model.attributes.orientation  = mediaItemOrientation( mediaW, mediaH );
 					}
 
 					// Detach the views.
@@ -187,22 +177,13 @@ function load_media_backbone_templates() {
 					// This only runs on images and video.
 					if ( 'image' === this.model.attributes.type || 'video' === this.model.attributes.type ) {
 
-						// Calculate my aspect ratio.
+						// Grab my width and height to use as variables.
 						var mediaW  = this.model.attributes.width;
 						var mediaH  = this.model.attributes.height;
 
-						// Add it to the model.
+						// Now add the aspect ratio and orientation label to the display model.
 						this.model.attributes.aspect_ratio = nearestNormalAspectRatio( mediaW, mediaH );
-
-						// Change the orientation back to sqaure if we're almost there.
-						if ( '1:1' === this.model.attributes.aspect_ratio ) {
-							this.model.attributes.orientation = medaPanelDataArgs.square;
-						}
-
-						// If we don't have orientation, go get it.
-						if ( ! this.model.attributes.orientation ) {
-							this.model.attributes.orientation = mediaItemOrientation( mediaW, mediaH );
-						}
+						this.model.attributes.orientation  = mediaItemOrientation( mediaW, mediaH );
 					}
 
 					// Detach the views.
