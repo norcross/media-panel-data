@@ -8,8 +8,8 @@
 // Declare our namespace.
 namespace Norcross\MediaPanelData\Helpers;
 
-// Set our aliases.
-use Norcross\MediaPanelData as Core;
+// And any functions or constants on their own.
+use const Norcross\MediaPanelData\HOOK_PREFIX;
 
 /**
  * Set the default allowed types, with a filter.
@@ -17,7 +17,7 @@ use Norcross\MediaPanelData as Core;
  * @return array
  */
 function get_allowed_media_types() {
-	return apply_filters( Core\HOOK_PREFIX . 'allowed_media_types', [ 'image', 'video' ] );
+	return apply_filters( HOOK_PREFIX . 'allowed_media_types', [ 'image', 'video' ] );
 }
 
 /**
@@ -92,7 +92,7 @@ function calculate_media_view_data( $media_id = 0 ) {
 	];
 
 	// Now send back the data with a filter.
-	return apply_filters( Core\HOOK_PREFIX . 'media_view_data', $set_media_args, $media_id, $get_media_data );
+	return apply_filters( HOOK_PREFIX . 'media_view_data', $set_media_args, $media_id, $get_media_data );
 }
 
 /**

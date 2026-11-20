@@ -9,8 +9,12 @@
 namespace Norcross\MediaPanelData\Display;
 
 // Set our aliases.
-use Norcross\MediaPanelData as Core;
 use Norcross\MediaPanelData\Helpers as Helpers;
+
+// And any functions or constants on their own.
+use const Norcross\MediaPanelData\VERS;
+use const Norcross\MediaPanelData\ASSETS_URL;
+use const Norcross\MediaPanelData\HOOK_PREFIX;
 
 /**
  * Start our engines.
@@ -35,10 +39,10 @@ function load_media_view_assets( $hook_suffix ) {
 	$file   = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? $handle : $handle . '.min';
 
 	// Set a version for whether or not we're debugging.
-	$vers   = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? time() : Core\VERS;
+	$vers   = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? time() : VERS;
 
 	// Load our JS file.
-	wp_enqueue_script( $handle, esc_url( Core\ASSETS_URL . '/js/' . $file . '.js' ), [ 'jquery' ], $vers, true );
+	wp_enqueue_script( $handle, esc_url( ASSETS_URL . '/js/' . $file . '.js' ), [ 'jquery' ], $vers, true );
 
 	// Include some localized labeling.
 	wp_localize_script( $handle, 'mediaPanelDataArgs',
@@ -85,7 +89,7 @@ function display_media_view_data( $post ) {
 	}
 
 	// Now include a hook so others can add it.
-	do_action( Core\HOOK_PREFIX . 'single_edit_advanced_view', $media_data, $media_type, $post );
+	do_action( HOOK_PREFIX . 'single_edit_advanced_view', $media_data, $media_type, $post );
 }
 
 /**
