@@ -3,7 +3,7 @@
  * Plugin Name: Media Panel Data
  * Plugin URI:  https://github.com/norcross/media-panel-data
  * Description: Surfacing additional information about media items in the library.
- * Version:     0.0.1-dev
+ * Version:     0.1.0
  * Author:      Andrew Norcross
  * Author URI:  https://github.com/norcross/
  * Text Domain: media-panel-data
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define our version.
-define( __NAMESPACE__ . '\VERS', '0.0.1' );
+define( __NAMESPACE__ . '\VERS', '0.1.0' );
 
 // Plugin root file.
 define( __NAMESPACE__ . '\FILE', __FILE__ );
