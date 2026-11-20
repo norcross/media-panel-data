@@ -107,12 +107,22 @@ function calculate_media_view_data( $media_id = 0 ) {
  */
 function format_aspect_ratio( $width = 0, $height = 0 ) {
 
+	// Make sure they didn't get string'd.
+	$set_width  = absint( $width );
+	$set_height = absint( $height );
+
+	// Make sure we don't try to divide by zero, as
+	// that may actually break the universe or something.
+	if ( empty( $set_width ) || empty( $set_height ) ) {
+		return '0:0';
+	}
+
 	// First set some empty variables.
 	$ratios_set = [];
 	$ratio_args = [];
 
 	// Set my fuller ratio.
-	$set_ratio  = ( $width * 100 ) / ( $height * 100 );
+	$set_ratio  = ( $set_width * 100 ) / ( $set_height * 100 );
 
 	// Start doing the base 16 check on width.
 	for ( $w = 1; $w < 17; $w++ ) {
