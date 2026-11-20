@@ -17,9 +17,6 @@
 // Declare our namespace.
 namespace Norcross\MediaPanelData;
 
-// Call our CLI namespace.
-use WP_CLI;
-
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -40,7 +37,6 @@ define( __NAMESPACE__ . '\DIR', plugin_dir_path( __FILE__ ) );
 
 // Set our assets URL constant.
 define( __NAMESPACE__ . '\ASSETS_URL', URL . 'assets' );
-define( __NAMESPACE__ . '\ASSETS_PATH', __DIR__ . '/assets' );
 
 // Set the various prefixes for our actions and filters.
 define( __NAMESPACE__ . '\HOOK_PREFIX', 'media_panel_data_' );
