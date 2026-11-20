@@ -65,23 +65,24 @@ function mediaItemOrientation( width, height ) {
 
 	// If the height and width are equal, just send back square.
 	if ( width === height ) {
-		return medaPanelDataArgs.square;
+		return mediaPanelDataArgs.square;
 	}
 
 	// Calculate the raw aspect ratio.
-	var
-	rawAspectRatio = width / height,
-	itemOrientation;
+	var rawAspectRatio = width / height;
 
-	// Do some if/then to determine the related string.
-	if ( rawAspectRatio > 1 ) { // Media is landscape.
-		itemOrientation = medaPanelDataArgs.landscape;
-	} else if ( rawAspectRatio < 1 ) { // Media is portrait.
-		itemOrientation = medaPanelDataArgs.portrait;
-	} else { // Media is square.
-		itemOrientation = medaPanelDataArgs.square;
+	// Now check for the 3 possible outcomes (even though square should be caught already).
+	switch ( true ) {
+		case rawAspectRatio === 1 : // Media is square.
+			return mediaPanelDataArgs.square;
+			break;
+
+		case rawAspectRatio > 1 : // Media is landscape.
+			return mediaPanelDataArgs.landscape;
+			break;
+
+		case rawAspectRatio < 1 : // Media is portrait.
+			return mediaPanelDataArgs.portrait;
+			break;
 	}
-
-	// Return what we have.
-	return itemOrientation;
 }
