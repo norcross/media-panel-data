@@ -20,7 +20,7 @@ add_action( 'attachment_submitbox_misc_actions', __NAMESPACE__ . '\display_media
 add_action( 'print_media_templates', __NAMESPACE__ . '\load_media_backbone_templates' );
 
 /**
- * Enqueue media scripts and some CSS.
+ * Enqueue our scripts related to the media panel.
  *
  * @param  string $hook_suffix The current admin page.
  *
@@ -28,8 +28,10 @@ add_action( 'print_media_templates', __NAMESPACE__ . '\load_media_backbone_templ
  */
 function load_media_view_assets( $hook_suffix ) {
 
-	// And load the file.
+	// Load our JS file.
 	wp_enqueue_script( 'media-panel-data', esc_url( Core\ASSETS_URL . '/js/media-panel-data.js' ), [ 'jquery' ], Core\VERS, true );
+
+	// Include some localized labeling.
 	wp_localize_script( 'media-panel-data', 'mediaPanelDataArgs',
 		[
 			'landscape' => __( 'Landscape', 'media-panel-data' ),
@@ -62,14 +64,14 @@ function display_media_view_data( $post ) {
 	// Now show the image orientation.
 	if ( ! empty( $media_data['orientation'] ) ) {
 		echo '<div class="misc-pub-section misc-pub-img-orientation">';
-			echo sprintf( __( 'Orientation: %s', 'media-panel-data' ), '<strong>' . esc_html( $media_data['orientation'] ) . '</strong>' ); // phpcs:ignore -- this is escaped just fine.
+			echo sprintf( esc_html__( 'Orientation: %s', 'media-panel-data' ), '<strong>' . esc_html( $media_data['orientation'] ) . '</strong>' );
 		echo '</div>';
 	}
 
 	// Now show the aspect ratio.
 	if ( ! empty( $media_data['aspect-ratio'] ) ) {
 		echo '<div class="misc-pub-section misc-pub-aspect-ratio">';
-			echo sprintf( __( 'Aspect Radio: %s', 'media-panel-data' ), '<strong>' . esc_html( $media_data['aspect-ratio'] ) . '</strong>' ); // phpcs:ignore -- this is escaped just fine.
+			echo sprintf( esc_html__( 'Aspect Radio: %s', 'media-panel-data' ), '<strong>' . esc_html( $media_data['aspect-ratio'] ) . '</strong>' );
 		echo '</div>';
 	}
 
