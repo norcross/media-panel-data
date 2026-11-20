@@ -112,7 +112,7 @@ function load_media_backbone_templates() {
 			<strong><?php esc_html_e( 'Orientation:', 'media-panel-data' ); ?></strong> {{ data.orientation }}
 		</div>
 		<div class="aspect-ratio">
-			<strong><?php esc_html_e( 'Aspect Ratio:', 'media-panel-data' ); ?></strong></strong> {{ data.aspect_ratio }}
+			<strong><?php esc_html_e( 'Aspect Ratio:', 'media-panel-data' ); ?></strong> {{ data.aspect_ratio }}
 		</div>
 	</script>
 
